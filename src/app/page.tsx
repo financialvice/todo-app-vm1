@@ -96,13 +96,13 @@ export default function TodoApp() {
   const completedTodoCount = todos.filter(todo => todo.completed).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto max-w-3xl p-4 py-12">
         <div className="mb-8 text-center">
-          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-2">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
             Todo App
           </h1>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-500 dark:text-gray-400">
             Keep track of your tasks efficiently
           </p>
         </div>
@@ -115,12 +115,12 @@ export default function TodoApp() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && addTodo()}
-              className="flex-1 text-lg py-6 transition-all duration-200 focus:scale-[1.01]"
+              className="flex-1 text-lg py-6 border-2 border-gray-200 focus:border-blue-500 transition-all duration-200 focus:scale-[1.01]"
             />
             <Button 
               onClick={addTodo}
               size="lg"
-              className="px-6 transition-all duration-200 hover:scale-105"
+              className="px-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white transition-all duration-200 hover:scale-105"
             >
               <Plus className="w-5 h-5 mr-1" />
               Add
@@ -147,7 +147,7 @@ export default function TodoApp() {
           {/* Todo List */}
           <div className="space-y-2 min-h-[200px]">
             {filteredTodos.length === 0 ? (
-              <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+              <div className="text-center py-12 text-gray-400 dark:text-gray-400">
                 {filter === 'all' && 'No todos yet. Add one above!'}
                 {filter === 'active' && 'No active todos.'}
                 {filter === 'completed' && 'No completed todos.'}
@@ -157,7 +157,7 @@ export default function TodoApp() {
                 {filteredTodos.map((todo, index) => (
                   <div
                     key={todo.id}
-                    className="group flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg transition-all duration-300 hover:shadow-md animate-in slide-in-from-top-2"
+                    className={`group flex items-center gap-3 p-4 ${todo.completed ? 'bg-gray-50' : 'bg-white'} dark:bg-gray-700 rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-md animate-in slide-in-from-top-2`}
                     style={{
                       animationDelay: `${index * 50}ms`,
                       animationFillMode: 'backwards'
@@ -185,7 +185,7 @@ export default function TodoApp() {
                           size="sm"
                           variant="ghost"
                           onClick={saveEdit}
-                          className="text-green-600 hover:text-green-700"
+                          className="text-green-600 hover:text-green-700 hover:bg-green-50"
                         >
                           <Check className="w-4 h-4" />
                         </Button>
@@ -193,7 +193,7 @@ export default function TodoApp() {
                           size="sm"
                           variant="ghost"
                           onClick={cancelEdit}
-                          className="text-gray-600 hover:text-gray-700"
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
                         >
                           <X className="w-4 h-4" />
                         </Button>
@@ -203,8 +203,8 @@ export default function TodoApp() {
                         <span 
                           className={`flex-1 text-lg transition-all duration-200 ${
                             todo.completed 
-                              ? 'line-through text-gray-500 dark:text-gray-400' 
-                              : 'text-gray-900 dark:text-white'
+                              ? 'line-through text-gray-400 dark:text-gray-400' 
+                              : 'text-gray-800 dark:text-white'
                           }`}
                         >
                           {todo.text}
@@ -215,7 +215,7 @@ export default function TodoApp() {
                             size="sm"
                             variant="ghost"
                             onClick={() => startEditing(todo.id, todo.text)}
-                            className="text-blue-600 hover:text-blue-700"
+                            className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
                           >
                             <Edit2 className="w-4 h-4" />
                           </Button>
@@ -223,7 +223,7 @@ export default function TodoApp() {
                             size="sm"
                             variant="ghost"
                             onClick={() => deleteTodo(todo.id)}
-                            className="text-red-600 hover:text-red-700"
+                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
                           >
                             <X className="w-4 h-4" />
                           </Button>
@@ -238,14 +238,14 @@ export default function TodoApp() {
 
           {/* Summary */}
           {todos.length > 0 && (
-            <div className="flex justify-between items-center pt-4 border-t text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex justify-between items-center pt-4 border-t text-sm text-gray-500 dark:text-gray-400">
               <span>{activeTodoCount} {activeTodoCount === 1 ? 'item' : 'items'} left</span>
               {completedTodoCount > 0 && (
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setTodos(prev => prev.filter(t => !t.completed))}
-                  className="hover:text-red-600"
+                  className="text-red-500 hover:text-red-600"
                 >
                   Clear completed
                 </Button>
